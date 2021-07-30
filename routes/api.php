@@ -17,10 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/getblog', [\App\Http\Controllers\BlogController::class, 'getBlog']);
+Route::post('/getblog/{id}', [\App\Http\Controllers\BlogController::class, 'getBlog']);
 
 Route::get('/getblogs', [\App\Http\Controllers\BlogController::class, 'getBlogs']);
 
-Route::post('/updateblog', [\App\Http\Controllers\BlogController::class, 'updateBlog']);
+Route::put('/updateblog/{id}', [\App\Http\Controllers\BlogController::class, 'updateBlog']);
 
-Route::post('/deleteblog', [\App\Http\Controllers\BlogController::class, 'deleteBlog']);
+Route::delete('/deleteblog/{id}', [\App\Http\Controllers\BlogController::class, 'deleteBlog']);
