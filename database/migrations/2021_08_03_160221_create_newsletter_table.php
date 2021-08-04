@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVerificationsTable extends Migration
+class CreateNewsletterTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateVerificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('verifications', function (Blueprint $table) {
+        Schema::create('newsletter', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->string('payload')->unique();
-            $table->boolean('has_been_used')->default(false);
-            $table->dateTime('time_used')->nullable();
+            $table->string('emails');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateVerificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('verifications');
+        Schema::dropIfExists('newsletter');
     }
 }

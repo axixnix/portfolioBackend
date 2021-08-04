@@ -38,11 +38,13 @@ class User extends Authenticatable
     ];
 
 
-    public function blog(){
+    public function blogs()
+    {
         return $this->hasMany(blog::class);
     }
 
-    public function verification(){
+    public function verifications()
+    {
         return $this->hasMany(Verification::class);
     }
 }
