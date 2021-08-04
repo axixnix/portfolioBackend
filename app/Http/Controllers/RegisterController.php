@@ -34,7 +34,8 @@ class RegisterController extends Controller
         ]);
 
         $verification = new Verification;
-        $verification->payload = urlencode(uniqid());
+        
+        $verification->payload = 
         $user->verifications()->save($verification);
 
         Mail::to($user->email)->send(new VerifyEmail($user, $verification));

@@ -24,7 +24,6 @@ class PortfolioAuth
                 $cookie = $request->cookie('Authentication');
                 $value = Crypt::decryptString($cookie);
                 $user = User::find($value);
-                echo $value;
                 if ($value && $user) {
                     $request->attributes->add(['user' => $user]);
                     Auth::onceUsingId($value);
