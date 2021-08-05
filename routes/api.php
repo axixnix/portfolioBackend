@@ -42,14 +42,14 @@ Route::prefix('blogs')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\BlogController::class, 'getBlogs']); //worked
 
-    Route::put('/{id}', [\App\Http\Controllers\BlogController::class, 'updateBlog']); //404
-
-    Route::delete('/{id}', [\App\Http\Controllers\BlogController::class, 'deleteBlog']); //404 not working
-
     Route::post('/search', [SearchController::class, 'search']);
 
     Route::middleware('PortfolioAuth')->group(function () {
         Route::post('/', [\App\Http\Controllers\BlogController::class, 'createBlog']); //
+
+        Route::put('/{id}', [\App\Http\Controllers\BlogController::class, 'updateBlog']); //404
+
+        Route::delete('/{id}', [\App\Http\Controllers\BlogController::class, 'deleteBlog']); //404 not working
     });
 });
 
