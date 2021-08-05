@@ -19,9 +19,9 @@ class PortfolioAuth
      */
     public function handle($request, Closure $next)
     {
-        if ($request->hasHeader('Authentication')) {
+        if ($request->hasHeader('Authorization')) {
             try {
-                $header = $request->header('Authentication');
+                $header = $request->header('Authorization');
                 $value = Crypt::decryptString($header);
                 $user = User::find($value);
                 if ($value && $user) {
