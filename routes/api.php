@@ -25,27 +25,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix("auth")->group(function() {
+    Route::post('/register', [RegisterController::class, 'registerUser']);
 
+    Route::post('/login', [LoginController::class, 'login']);
 
-Route::post('/register', [RegisterController::class, 'registerUser']);
+    Route::post('forgot-password', [\App\Http\Controllers\VerificationController::class, 'resetPassword']);
 
-Route::post('/login', [LoginController::class, 'login']);
+    Route::post('change-password', [\App\Http\Controllers\VerificationController::class, 'changePassword']);
 
-Route::get('/emails', [NewsletterController::class, 'getEmails']);
-
-Route::post('/subscription', [NewsletterController::class, 'saveEmail']);
-
-Route::post('/search', [SearchController::class, 'search']);
-
-Route::get('/home-page', [SiteController::class, 'getHomePage']);
-
-Route::get('/site', [SiteController::class, 'getSite']);
-
-Route::middleware('PortfolioAuth')->group(function () {
-    Route::post('/profilePic', [ImageController::class, 'imageUpload']);
-    Route::post('/updateSite', [SiteController::class, 'updateSite']);
+    // Verify email
 });
-
 
 Route::prefix('blogs')->group(function () {
     Route::get('/{id}', [\App\Http\Controllers\BlogController::class, 'getBlog']); //worked
@@ -54,10 +44,39 @@ Route::prefix('blogs')->group(function () {
 
     Route::put('/{id}', [\App\Http\Controllers\BlogController::class, 'updateBlog']); //404
 
-    Route::delete('/{id}', [\App\Http\Controllers\BlogController::class, 'deleteBlog']); //404 not working 
+    Route::delete('/{id}', [\App\Http\Controllers\BlogController::class, 'deleteBlog']); //404 not working
+
+    Route::post('/search', [SearchController::class, 'search']);
 
     Route::middleware('PortfolioAuth')->group(function () {
         Route::post('/', [\App\Http\Controllers\BlogController::class, 'createBlog']); //
-
     });
 });
+
+Route::prefix('news-letter')->group(function() {
+    Route::get('/emails', [NewsletterController::class, 'getEmails']);
+    Route::post('/subscribe', [NewsletterController::class, 'saveEmail']);
+});
+
+Route::prefix('site')->group(function() {
+    Route::get('/home', [SiteController::class, 'getHomePage']);
+    Route::get('/content', [SiteController::class, 'getSite']);
+
+    Route::middleware('PortfolioAuth')->group(function () {
+        Route::post('/upload-profile-pic', [ImageController::class, 'imageUpload']);
+        Route::post('/update-site', [SiteController::class, 'updateSite']);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

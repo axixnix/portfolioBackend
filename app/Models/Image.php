@@ -1,15 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class blog extends Model
+class Image extends Model
 {
     //
-    use SoftDeletes;
-
     public function user(){
         return $this->belongsTo(User::class);
     }

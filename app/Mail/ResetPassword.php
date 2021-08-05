@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VerifyEmail extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -35,7 +35,7 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Welcome to Admin Section")->view('mails.verify', [
+        return $this->subject("Reset your Password")->view('mails.resetpassword', [
             'user' => $this->user,
             'verification' => $this->verification
         ]);

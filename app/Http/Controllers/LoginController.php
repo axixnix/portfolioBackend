@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
@@ -20,7 +20,7 @@ class LoginController extends Controller
         if (is_null($user)) return response(['message' => 'credentials do not match our records'], 401);
         if (Hash::check($request->input('password'), $user->password)) {
             $token = Crypt::encryptString($user->id);
-            return response(['message' => 'logged in successfuly'])->withCookie('authentication', $token, time() + (86400 * 30), '/');
+            return response(['message' => 'logged in successfuly', 'token' => $token]);
         } else {
             return response(['message' => 'the credentials do not match our records'], 401);
         }

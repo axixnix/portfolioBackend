@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Blog;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -48,8 +48,8 @@ class BlogController extends Controller
     {
         $blog = Blog::find($id);
         if ($blog) {
-            $blog->title = $request->title;
-            $blog->content = $request->content;
+            $blog->title = $request->input('title');
+            $blog->content = $request->input('content');
             $blog->update();
             return response()->json(['message' => 'blog updated successfully'], 200);
         }

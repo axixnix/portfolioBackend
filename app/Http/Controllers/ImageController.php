@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Image;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -15,7 +12,6 @@ class ImageController extends Controller
     {
         //$path = $request->file('profilePic')->store('profilePics/'.$request->user()->id);
         $path = $request->file('profilePic')->store('profilePics', 'public');
-
         $user = $request->user();
         $image = new Image();
         $image->url = $path;

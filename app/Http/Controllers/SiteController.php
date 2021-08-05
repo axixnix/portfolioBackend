@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Site;
-use App\Image;
+use App\Models\Site;
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller

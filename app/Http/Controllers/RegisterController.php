@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\RandomFunctions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerifyEmail;
-use App\Verification;
+use App\Models\Verification;
 
 class RegisterController extends Controller
 {
@@ -34,8 +35,11 @@ class RegisterController extends Controller
         ]);
 
         $verification = new Verification;
-        
-        $verification->payload = 
+        $verification->payload = RandomFunctions::generateRandomString(5);
+        $check = true;
+        do{
+            $check = !is_null(Verification::where('payload', $verification->payload)->first());
+        } while($check);
         $user->verifications()->save($verification);
 
         Mail::to($user->email)->send(new VerifyEmail($user, $verification));

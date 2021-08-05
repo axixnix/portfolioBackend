@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Encryption\DecryptException;
@@ -19,10 +19,10 @@ class PortfolioAuth
      */
     public function handle($request, Closure $next)
     {
-        if ($request->hasCookie('Authentication')) {
+        if ($request->hasHeader('Authentication')) {
             try {
-                $cookie = $request->cookie('Authentication');
-                $value = Crypt::decryptString($cookie);
+                $header = $request->header('Authentication');
+                $value = Crypt::decryptString($header);
                 $user = User::find($value);
                 if ($value && $user) {
                     $request->attributes->add(['user' => $user]);
