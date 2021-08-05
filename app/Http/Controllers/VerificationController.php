@@ -78,8 +78,7 @@ class VerificationController extends Controller
             $user->save();
             return response(['message' => "Password changed successfully"], 200);
         } catch (\Exception $exp) {
-            echo $exp->getTraceAsString();
-            return response(['message' => $exp->getMessage()], 403);
+            return response(['message' => $exp->getMessage()], 400);
         }
     }
 }
