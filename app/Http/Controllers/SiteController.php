@@ -39,11 +39,9 @@ class SiteController extends Controller
     {
         $storedSite = json_decode(Site::orderBy('id', 'desc')->first()->site_json, true);
         $storedImage = Image::orderBy('id', 'desc')->first();
-        $url = $storedImage->url;
-        $path = env('APP_URL') . "/storage/" . $url;
         return response(['data' => [
             'site' => $storedSite,
-            'image' => $path
+            'image' => $storedImage->url
         ]], 200);
     }
 }

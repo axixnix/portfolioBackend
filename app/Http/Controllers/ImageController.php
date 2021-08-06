@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 class ImageController extends Controller
 {
     //
     public function imageUpload(Request $request)
     {
-        //$path = $request->file('profilePic')->store('profilePics/'.$request->user()->id);
-        $path = $request->file('profilePic')->store('profilePics', 'public');
         $user = $request->user();
         $image = new Image();
-        $image->url = $path;
+        $image->url = $request->input('url');
         //env('APP_URL') . "/storage/" . $image->url;
         $image->user_id = $user->id;
         $image->save();
